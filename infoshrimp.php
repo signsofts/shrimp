@@ -23,12 +23,12 @@ $activeHome = 'active';
     
 
 
-    if (!isset ($_GET["ISP_ID"])) {
+    if (!isset($_GET["ISP_ID"])) {
         echo "<script>alert('ข้อมูลไม่ถูกต้อง')</script>";
         echo "<script>setTimeout(() => {location.assign('./index.php');}, 500);</script>";
     }
     $ISP_ID = $_GET["ISP_ID"]; // รหัสการเปิดบ่อ
-
+    
     // query หาข้อมูล การเปิดบ่อ
     $isp_rco = Database::query("SELECT * FROM `shr_infoshrimp`
         INNER JOIN shr_pond ON shr_infoshrimp.PON_ID = shr_pond.PON_ID 
@@ -86,7 +86,7 @@ $activeHome = 'active';
                                 <textarea class="form-control border-0" rows="1"
                                     disabled><?php echo $isp_rco->ISP_NOTE ?? '-' ?></textarea>
                             </div>
-                            <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                            <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                 <div class="col-12">
                                     <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalClone"
                                         class="btn btn-sm btn-danger py-1 px-4">ปิดบ่อ</a>
@@ -112,7 +112,7 @@ $activeHome = 'active';
                     </div>
                     <div class="col d-flex justify-content-end">
                         <!-- ตรวจสอบสถานนะการปิดบ่ -->
-                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                             <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalAdd"
                                 class="btn btn-primary py-3 px-5 mb-4">สร้างข้อมูล</a>
                         <?php endif; ?>
@@ -212,6 +212,8 @@ $activeHome = 'active';
                                     INNER JOIN shr_infoshrimp ON shr_quality.ISP_ID = shr_infoshrimp.ISP_ID
                                     WHERE shr_infoshrimp.ISP_ID = '$ISP_ID' ORDER BY shr_quality.QY_AGE ASC  ";
 
+                        $smA = 0;
+                        $smB = 0;
                         foreach (Database::squery($sql, PDO::FETCH_OBJ, true) as $key => $item):
                             ?>
 
@@ -229,7 +231,7 @@ $activeHome = 'active';
                                         <?php echo $item->FT_NAME . "( $item->FT_NUMBER )" ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_1" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_1; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -238,7 +240,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_2" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_2; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -247,7 +249,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_3" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_3; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -256,7 +258,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_4" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_4; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -265,7 +267,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_5" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_5; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -274,7 +276,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="number" min="1" name="QY_FEED_6" style="width: 40px;"
                                                 value="<?php echo $item->QY_FEED_6; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -285,11 +287,14 @@ $activeHome = 'active';
 
                                     </td>
                                     <td class="text-center">
-                                        <?php echo (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_4 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6 ?>
+                                        <?php
+                                        $smA += (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_4 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6;
+                                        echo  (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_4 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6
+                                            ?>
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_1" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_1; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -299,7 +304,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_2" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_2; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -309,7 +314,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_3" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_3; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -319,7 +324,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_4" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_4; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -329,7 +334,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_5" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_5; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -339,7 +344,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
 
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_SURPLUS_6" style="width: 40px;"
                                                 value="<?php echo $item->QY_SURPLUS_6; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -349,11 +354,12 @@ $activeHome = 'active';
 
                                     </td>
                                     <td class="text-center">
+                                        <?php  $smB += (int) $item->QY_SURPLUS_1 + (int) $item->QY_SURPLUS_2 + (int) $item->QY_SURPLUS_3 + (int) $item->QY_SURPLUS_4 + (int) $item->QY_SURPLUS_5 + (int) $item->QY_SURPLUS_6 ?>
                                         <?php echo (int) $item->QY_SURPLUS_1 + (int) $item->QY_SURPLUS_2 + (int) $item->QY_SURPLUS_3 + (int) $item->QY_SURPLUS_4 + (int) $item->QY_SURPLUS_5 + (int) $item->QY_SURPLUS_6 ?>
                                     </td>
                                     <!-- <td class="text-center">
 
-                                   <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                   <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_SALTY" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_SALTY; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -362,7 +368,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_AMMONIA" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_AMMONIA; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -371,7 +377,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_NITRITE" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_NITRITE; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -380,7 +386,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td> -->
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_PH_1" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_PH_1; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -389,7 +395,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_PH_2" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_PH_2; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -398,7 +404,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <!-- <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_ACID_1" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_ACID_1; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -407,7 +413,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_ACID_2" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_ACID_2; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -416,7 +422,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_PERA_1" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_PERA_1; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -425,7 +431,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_PERA_2" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_PERA_2; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -435,7 +441,7 @@ $activeHome = 'active';
                                     </td>
 
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_COLOR" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_COLOR; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -444,7 +450,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_MOIST" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_MOIST; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -453,7 +459,7 @@ $activeHome = 'active';
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_W_KALINE" style="width: 40px;"
                                                 value="<?php echo $item->QY_W_KALINE; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -464,7 +470,7 @@ $activeHome = 'active';
 
 
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_RDOM_GRAM" style="width: 40px;"
                                                 value="<?php echo $item->QY_RDOM_GRAM; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -474,7 +480,7 @@ $activeHome = 'active';
                                     </td>
 
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <input type="text" name="QY_RDOM_KG" style="width: 40px;"
                                                 value="<?php echo $item->QY_RDOM_KG; ?>"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
@@ -484,7 +490,7 @@ $activeHome = 'active';
                                     </td>
 
                                     <td class="text-center">
-                                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                                             <textarea name="QY_REMARK" style="width: 70px;"
                                                 onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')"
                                                 rows="1"><?php echo $item->QY_REMARK; ?></textarea>
@@ -497,6 +503,31 @@ $activeHome = 'active';
                             </tr>
                         <?php endforeach; ?>
 
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><?php echo $smA ;?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><?php echo $smB ;?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -508,7 +539,7 @@ $activeHome = 'active';
                         <h1>รายรับ - รายจ่าย</h1>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <?php if (empty ($isp_rco->ISP_STATUS)): ?>
+                        <?php if (empty($isp_rco->ISP_STATUS)): ?>
                             <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalMList"
                                 class="btn btn-primary py-3 px-5 mb-4">เพิ่มรายการ</a>
                         <?php endif; ?>

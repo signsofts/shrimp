@@ -18,7 +18,7 @@ $title = 'หน้าหลัก';
     <div class="container-xxl py-5">
         <div class="container">
             <div class="section-title text-center">
-                <h1 class="display-5 mb-5">เข้าสูระบบ</h1>
+                <h1 class="display-5 mb-5">เข้าสู่ระบบ</h1>
             </div>
 
             <div class="card">
@@ -37,7 +37,7 @@ $title = 'หน้าหลัก';
                                     placeholder="รหัสผ่าน" value="admin" style="height: 55px;">
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">เข้าสูระบบ</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit">เข้าสู่ระบบ</button>
                             </div>
                         </div>
                     </form>

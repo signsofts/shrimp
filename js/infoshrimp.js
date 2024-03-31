@@ -2,8 +2,8 @@ const mainTable = new DataTable('#mainTable', {
     // responsive: true,
     "pageLength": -1,
     "lengthMenu": [
-        [-1, 100, 50, 25],
-        ["All", 100, 50, 25]
+        [-1,],
+        ["All",]
     ],
     ordering: false,
     searching: false,
