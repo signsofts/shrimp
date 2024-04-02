@@ -3,7 +3,7 @@
 session_start();
 
 unset($_SESSION["login"]);
-
+unset($_SESSION["type"]);
 session_destroy();
 
 echo "<script>alert('ออกระบบสำเร็จ')</script>";

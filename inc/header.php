@@ -1,6 +1,6 @@
 <?php
 
-if (isset ($_POST["AD_USERNAME"]) || isset ($_POST["AD_PASSWORD"])) {
+if (isset($_POST["AD_USERNAME"]) || isset($_POST["AD_PASSWORD"])) {
 
     $AD_USERNAME = $_POST["AD_USERNAME"];
     $AD_PASSWORD = $_POST["AD_PASSWORD"];
@@ -9,19 +9,26 @@ if (isset ($_POST["AD_USERNAME"]) || isset ($_POST["AD_PASSWORD"])) {
     $q = Database::squery("SELECT * FROM `shr_admin` WHERE AD_USERNAME = '$AD_USERNAME'  AND AD_PASSWORD ='$AD_PASSWORD' ", PDO::FETCH_OBJ, false);
 
     if ($q) {
+
+        if ($q->AD_NAME == "admin") {
+            $_SESSION["type"] = 'admin';
+        } else {
+            $_SESSION["type"] = 'user';
+        }
+
         $_SESSION["login"] = $q->AD_ID;
     } else {
         echo "<script>alert('เข้าระบบไม่สำเร็จ')</script>";
-        echo "<script>setTimeout(() => {location.assign('./login.php');}, 500);</script>" ;
+        echo "<script>setTimeout(() => {location.assign('./login.php');}, 500);</script>";
     }
 }
 
 
 
 
-if(!isset($_SESSION["login"]) || empty($_SESSION["login"])){
+if (!isset($_SESSION["login"]) || empty($_SESSION["login"])) {
     echo "<script>alert('กรุณาเข้าสู่ระบบก่อน')</script>";
-    echo "<script>setTimeout(() => {location.assign('./login.php');}, 500);</script>" ;  
+    echo "<script>setTimeout(() => {location.assign('./login.php');}, 500);</script>";
 }
 
 ?>
@@ -84,12 +91,16 @@ if(!isset($_SESSION["login"]) || empty($_SESSION["login"])){
             <a href="history.php" class="nav-item nav-link <?php echo $activeHistory ?? '' ?>">ประวัติการเลี้ยงกุ้ง</a>
             <div class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link dropdown-toggle <?php echo !empty ($activeBreed) || !empty ($activeFood) || !empty ($activePond) ? "active" : '' ?>"
+                    class="nav-link dropdown-toggle <?php echo !empty($activeBreed) || !empty($activeFood) || !empty($activePond) ? "active" : '' ?>"
                     data-bs-toggle="dropdown">จัดการ</a>
                 <div class="dropdown-menu fade-up m-0">
                     <!-- <a href="breed.php" class="dropdown-item <?php echo $activeBreed ?? '' ?>">สายพันธุ์กุ้ง</a> -->
                     <a href="foodtype.php" class="dropdown-item <?php echo $activeFood ?? '' ?>">อาหาร</a>
                     <a href="pond.php" class="dropdown-item <?php echo $activePond ?? '' ?>">บ่อกุ้ง</a>
+
+                    <?php if ($_SESSION["type"] == 'admin'): ?>
+                        <a href="user.php" class="dropdown-item <?php echo $activeUser ?? '' ?>">จัดการผู้ใช้งาน</a>
+                    <?php endif; ?>
                 </div>
             </div>
             <a href="./logout.php" class="nav-item nav-link">ออกจากระบบ</a>
