@@ -68,7 +68,7 @@ if (isset($_POST["QY_FEED_6"])) {
 
 
 
-
+    
 
 // echo $SUMFT;
 // if (isset($_POST["QY_FEED_6"])) {
