@@ -75,7 +75,7 @@ $title = 'ข้อมูลการเลี้ยงกุ้ง';
                                     value="<?php echo $isp_rco->ISP_START ?>">
                             </div>
                             <div class="col-12 col-sm-4">
-                                <label for="">วันที่ปิดบ่อ</label>
+                                <label for="">วันที่จับกุ้ง</label>
                                 <input type="text" class="form-control border-0" disabled style=""
                                     value="<?php echo $isp_rco->ISP_END ?? '-' ?>">
                             </div>

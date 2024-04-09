@@ -1,4 +1,4 @@
-<?php include ("config/connectdb.php");
+<?php include("config/connectdb.php");
 // header('Content-type: application/json; charset=utf-8');
 
 $QY_ID = $_POST["QY_ID"];
@@ -11,44 +11,56 @@ WHERE shr_quality.QY_ID = '$QY_ID'";
 $item = Database::squery($sql, PDO::FETCH_OBJ, false);
 
 
+// if (isset($_POST["QY_FEED_6"])) {
+//         $ISP_ID = $item->ISP_ID;
+//         $FT_PRICE = $_POST["FT_PRICE"];
+//         $QY_AGE = $_POST["QY_AGE"];
 
+//         $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (int)$FT_PRICE;
+
+//         echo $ML_AMOUNT;
+// } else {
+//         echo " lsdkf";
+// }
+
+// exit;
 
 //  ตรวจสอบค่าว่าง กรณีที่มี ค่าว่าง ที่ส่งเข้ามา ให้ใช้ค่า ที่อยู่ในฐานข้อมูล
-$QY_FEED_1 = isset ($_POST["QY_FEED_1"]) ? $_POST["QY_FEED_1"] : $item->QY_FEED_1;
-$QY_FEED_2 = isset ($_POST["QY_FEED_2"]) ? $_POST["QY_FEED_2"] : $item->QY_FEED_2;
-$QY_FEED_3 = isset ($_POST["QY_FEED_3"]) ? $_POST["QY_FEED_3"] : $item->QY_FEED_3;
-$QY_FEED_4 = isset ($_POST["QY_FEED_4"]) ? $_POST["QY_FEED_4"] : $item->QY_FEED_4;
-$QY_FEED_5 = isset ($_POST["QY_FEED_5"]) ? $_POST["QY_FEED_5"] : $item->QY_FEED_5;
-$QY_FEED_6 = isset ($_POST["QY_FEED_6"]) ? $_POST["QY_FEED_6"] : $item->QY_FEED_6;
+$QY_FEED_1 = isset($_POST["QY_FEED_1"]) ? $_POST["QY_FEED_1"] : $item->QY_FEED_1;
+$QY_FEED_2 = isset($_POST["QY_FEED_2"]) ? $_POST["QY_FEED_2"] : $item->QY_FEED_2;
+$QY_FEED_3 = isset($_POST["QY_FEED_3"]) ? $_POST["QY_FEED_3"] : $item->QY_FEED_3;
+$QY_FEED_4 = isset($_POST["QY_FEED_4"]) ? $_POST["QY_FEED_4"] : $item->QY_FEED_4;
+$QY_FEED_5 = isset($_POST["QY_FEED_5"]) ? $_POST["QY_FEED_5"] : $item->QY_FEED_5;
+$QY_FEED_6 = isset($_POST["QY_FEED_6"]) ? $_POST["QY_FEED_6"] : $item->QY_FEED_6;
 
-$QY_SURPLUS_1 = isset ($_POST["QY_SURPLUS_1"]) ? $_POST["QY_SURPLUS_1"] : $item->QY_SURPLUS_1;
-$QY_SURPLUS_2 = isset ($_POST["QY_SURPLUS_2"]) ? $_POST["QY_SURPLUS_2"] : $item->QY_SURPLUS_2;
-$QY_SURPLUS_3 = isset ($_POST["QY_SURPLUS_3"]) ? $_POST["QY_SURPLUS_3"] : $item->QY_SURPLUS_3;
-$QY_SURPLUS_4 = isset ($_POST["QY_SURPLUS_4"]) ? $_POST["QY_SURPLUS_4"] : $item->QY_SURPLUS_4;
-$QY_SURPLUS_5 = isset ($_POST["QY_SURPLUS_5"]) ? $_POST["QY_SURPLUS_5"] : $item->QY_SURPLUS_5;
-$QY_SURPLUS_6 = isset ($_POST["QY_SURPLUS_6"]) ? $_POST["QY_SURPLUS_6"] : $item->QY_SURPLUS_6;
+$QY_SURPLUS_1 = isset($_POST["QY_SURPLUS_1"]) ? $_POST["QY_SURPLUS_1"] : $item->QY_SURPLUS_1;
+$QY_SURPLUS_2 = isset($_POST["QY_SURPLUS_2"]) ? $_POST["QY_SURPLUS_2"] : $item->QY_SURPLUS_2;
+$QY_SURPLUS_3 = isset($_POST["QY_SURPLUS_3"]) ? $_POST["QY_SURPLUS_3"] : $item->QY_SURPLUS_3;
+$QY_SURPLUS_4 = isset($_POST["QY_SURPLUS_4"]) ? $_POST["QY_SURPLUS_4"] : $item->QY_SURPLUS_4;
+$QY_SURPLUS_5 = isset($_POST["QY_SURPLUS_5"]) ? $_POST["QY_SURPLUS_5"] : $item->QY_SURPLUS_5;
+$QY_SURPLUS_6 = isset($_POST["QY_SURPLUS_6"]) ? $_POST["QY_SURPLUS_6"] : $item->QY_SURPLUS_6;
 
-$QY_W_SALTY = isset ($_POST["QY_W_SALTY"]) ? $_POST["QY_W_SALTY"] : $item->QY_W_SALTY;
-$QY_W_AMMONIA = isset ($_POST["QY_W_AMMONIA"]) ? $_POST["QY_W_AMMONIA"] : $item->QY_W_AMMONIA;
-$QY_W_NITRITE = isset ($_POST["QY_W_NITRITE"]) ? $_POST["QY_W_NITRITE"] : $item->QY_W_NITRITE;
+$QY_W_SALTY = isset($_POST["QY_W_SALTY"]) ? $_POST["QY_W_SALTY"] : $item->QY_W_SALTY;
+$QY_W_AMMONIA = isset($_POST["QY_W_AMMONIA"]) ? $_POST["QY_W_AMMONIA"] : $item->QY_W_AMMONIA;
+$QY_W_NITRITE = isset($_POST["QY_W_NITRITE"]) ? $_POST["QY_W_NITRITE"] : $item->QY_W_NITRITE;
 
-$QY_W_PH_1 = isset ($_POST["QY_W_PH_1"]) ? $_POST["QY_W_PH_1"] : $item->QY_W_PH_1;
-$QY_W_PH_2 = isset ($_POST["QY_W_PH_2"]) ? $_POST["QY_W_PH_2"] : $item->QY_W_PH_2;
+$QY_W_PH_1 = isset($_POST["QY_W_PH_1"]) ? $_POST["QY_W_PH_1"] : $item->QY_W_PH_1;
+$QY_W_PH_2 = isset($_POST["QY_W_PH_2"]) ? $_POST["QY_W_PH_2"] : $item->QY_W_PH_2;
 
-$QY_W_ACID_1 = isset ($_POST["QY_W_ACID_1"]) ? $_POST["QY_W_ACID_1"] : $item->QY_W_ACID_1;
-$QY_W_ACID_2 = isset ($_POST["QY_W_ACID_2"]) ? $_POST["QY_W_ACID_2"] : $item->QY_W_ACID_2;
+$QY_W_ACID_1 = isset($_POST["QY_W_ACID_1"]) ? $_POST["QY_W_ACID_1"] : $item->QY_W_ACID_1;
+$QY_W_ACID_2 = isset($_POST["QY_W_ACID_2"]) ? $_POST["QY_W_ACID_2"] : $item->QY_W_ACID_2;
 
-$QY_W_PERA_1 = isset ($_POST["QY_W_PERA_1"]) ? $_POST["QY_W_PERA_1"] : $item->QY_W_PERA_1;
-$QY_W_PERA_2 = isset ($_POST["QY_W_PERA_2"]) ? $_POST["QY_W_PERA_2"] : $item->QY_W_PERA_2;
+$QY_W_PERA_1 = isset($_POST["QY_W_PERA_1"]) ? $_POST["QY_W_PERA_1"] : $item->QY_W_PERA_1;
+$QY_W_PERA_2 = isset($_POST["QY_W_PERA_2"]) ? $_POST["QY_W_PERA_2"] : $item->QY_W_PERA_2;
 
-$QY_W_COLOR = isset ($_POST["QY_W_COLOR"]) ? $_POST["QY_W_COLOR"] : $item->QY_W_COLOR;
-$QY_W_MOIST = isset ($_POST["QY_W_MOIST"]) ? $_POST["QY_W_MOIST"] : $item->QY_W_MOIST;
-$QY_W_KALINE = isset ($_POST["QY_W_KALINE"]) ? $_POST["QY_W_KALINE"] : $item->QY_W_KALINE;
+$QY_W_COLOR = isset($_POST["QY_W_COLOR"]) ? $_POST["QY_W_COLOR"] : $item->QY_W_COLOR;
+$QY_W_MOIST = isset($_POST["QY_W_MOIST"]) ? $_POST["QY_W_MOIST"] : $item->QY_W_MOIST;
+$QY_W_KALINE = isset($_POST["QY_W_KALINE"]) ? $_POST["QY_W_KALINE"] : $item->QY_W_KALINE;
 
-$QY_RDOM_GRAM = isset ($_POST["QY_RDOM_GRAM"]) ? $_POST["QY_RDOM_GRAM"] : $item->QY_RDOM_GRAM;
-$QY_RDOM_KG = isset ($_POST["QY_RDOM_KG"]) ? $_POST["QY_RDOM_KG"] : $item->QY_RDOM_KG;
+$QY_RDOM_GRAM = isset($_POST["QY_RDOM_GRAM"]) ? $_POST["QY_RDOM_GRAM"] : $item->QY_RDOM_GRAM;
+$QY_RDOM_KG = isset($_POST["QY_RDOM_KG"]) ? $_POST["QY_RDOM_KG"] : $item->QY_RDOM_KG;
 
-$QY_REMARK = isset ($_POST["QY_REMARK"]) ? $_POST["QY_REMARK"] : $item->QY_REMARK;
+$QY_REMARK = isset($_POST["QY_REMARK"]) ? $_POST["QY_REMARK"] : $item->QY_REMARK;
 
 
 
@@ -83,9 +95,83 @@ $sqll = "UPDATE `shr_quality` SET
         `QY_REMARK` = '$QY_REMARK'
  WHERE `shr_quality`.`QY_ID` = $QY_ID;";
 
+$ISP_ID = $item->ISP_ID;
+$FT_PRICE = $_POST["FT_PRICE"];
+$QY_AGE = $_POST["QY_AGE"];
 
 // อัพเดตข้อมูล 
 if (Database::query($sqll)) {
+
+        if (isset($_POST["QY_FEED_1"])) {
+                $ML_AMOUNT = (int)$_POST["QY_FEED_1"] * (int)$FT_PRICE;
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 1";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
+
+        if (isset($_POST["QY_FEED_2"])) {
+                // $ML_AMOUNT = (int)$QY_FEED_2 * (int)$FT_PRICE;
+                
+                $ML_AMOUNT = (int)$_POST["QY_FEED_2"] * (int)$FT_PRICE;
+
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 2";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
+
+        if (isset($_POST["QY_FEED_3"])) {
+                // $ML_AMOUNT = (int)$QY_FEED_3 * (int)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_3"] * (int)$FT_PRICE;
+
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 3";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
+
+        if (isset($_POST["QY_FEED_4"])) {
+                // $ML_AMOUNT = (int)$QY_FEED_4 * (int)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_4"] * (int)$FT_PRICE;
+
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 4";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
+
+        if (isset($_POST["QY_FEED_5"])) {
+                // $ML_AMOUNT = (int)$QY_FEED_5 * (int)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_5"] * (int)$FT_PRICE;
+
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 5";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
+
+        if (isset($_POST["QY_FEED_6"])) {
+                // $ML_AMOUNT = (int)$QY_FEED_6 * (int)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (int)$FT_PRICE;
+
+                $ML_TYPE = '0'; // รายรับ - รายจ่าย
+                $ML_NAME = "อายุุกุ้ง $QY_AGE อาหารมือ 6";
+
+                $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                Database::query($sqm1);
+        }
 }
 //  ลิงค์กลับไปยังหน้าเดิมปัจจุบัน
 echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
@@ -117,6 +203,3 @@ echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>"
 // }
 
 // echo json_encode(true);
-
-
-

@@ -7,11 +7,11 @@ $activeHome = 'active';
 ?>
 
 <head>
-    <?php include ("inc/head.php") ?>
+    <?php include("inc/head.php") ?>
 </head>
 
 <body>
-    <?php include ("inc/header.php") ?>
+    <?php include("inc/header.php") ?>
 
     <div class="container-xxl py-5">
         <div class="container">
@@ -28,7 +28,7 @@ $activeHome = 'active';
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <?php $c1 = Database::squery("SELECT * FROM `shr_pond` WHERE (PON_STATUS IS NULL OR PON_STATUS = '1') AND PON_DELETE IS NULL ", PDO::FETCH_OBJ, true) ?>
                         <h1 class="display-1 text-primary mb-0">
-                            <?php echo sprintf("%02d", count($c1)) ?>
+                            <?php echo sprintf("%d", count($c1)) ?>
                         </h1>
                     </div>
                     <h5>บ่อกุ้งทั้งหมด</h5>
@@ -37,7 +37,7 @@ $activeHome = 'active';
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <?php $c1 = Database::squery("SELECT * FROM `shr_pond` WHERE PON_STATUS IS NULL AND PON_DELETE IS NULL", PDO::FETCH_OBJ, true) ?>
                         <h1 class="display-1 text-warning mb-0">
-                            <?php echo sprintf("%02d", count($c1)) ?>
+                            <?php echo sprintf("%d", count($c1)) ?>
                         </h1>
                     </div>
                     <h5>บ่อกุ้งที่ว่าง</h5>
@@ -46,7 +46,7 @@ $activeHome = 'active';
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <?php $c1 = Database::squery("SELECT * FROM `shr_pond` WHERE PON_STATUS = '1' AND PON_DELETE IS NULL ", PDO::FETCH_OBJ, true) ?>
                         <h1 class="display-1 text-success mb-0">
-                            <?php echo sprintf("%02d", count($c1)) ?>
+                            <?php echo sprintf("%d", count($c1)) ?>
                         </h1>
                     </div>
                     <h5>บ่อกุ้งที่กำลังเลี้ยง</h5>
@@ -66,8 +66,7 @@ $activeHome = 'active';
                     <div class="row">
                         <div class="col"></div>
                         <div class="col d-flex justify-content-end">
-                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalAdd"
-                                class="btn btn-primary py-3 px-5 mb-4">เปิดบ่อกุ้งใหม่</a>
+                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalAdd" class="btn btn-primary py-3 px-5 mb-4">เปิดบ่อกุ้งใหม่</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +74,7 @@ $activeHome = 'active';
                 INNER JOIN shr_pond ON shr_infoshrimp.PON_ID = shr_pond.PON_ID 
                 INNER JOIN shr_breed ON shr_infoshrimp.BRE_ID = shr_breed.BRE_ID 
                 WHERE shr_infoshrimp.ISP_END IS NULL;
-                ", PDO::FETCH_OBJ) as $key => $item): ?>
+                ", PDO::FETCH_OBJ) as $key => $item) : ?>
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" style="cursor: pointer ;">
                         <a class="service-item" href="./infoshrimp.php?ISP_ID=<?php echo $item->ISP_ID ?>">
                             <div class="overflow-hidden">
@@ -119,7 +118,7 @@ $activeHome = 'active';
                                 <select class="form-select border-0" style="height: 55px;" name="PON_ID" required>
                                     <option value="" selected>เลือก</option>
                                     <!-- ค้นหาบ่กุ้งที่ว่า -->
-                                    <?php foreach (Database::query("SELECT * FROM `shr_pond` WHERE PON_STATUS IS NULL  AND PON_DELETE IS NULL ; ", PDO::FETCH_OBJ) as $key => $item): ?>
+                                    <?php foreach (Database::query("SELECT * FROM `shr_pond` WHERE PON_STATUS IS NULL  AND PON_DELETE IS NULL ; ", PDO::FETCH_OBJ) as $key => $item) : ?>
                                         <option value="<?php echo $item->PON_ID ?>">
                                             <?php echo $item->PON_NAME ?>
                                         </option>
@@ -131,7 +130,7 @@ $activeHome = 'active';
                                 <select class="form-select border-0" style="height: 55px;" name="BRE_ID" required>
                                     <option value="" selected>เลือก</option>
                                     <!-- ค้นหาสายพันธุ์กุ้ง -->
-                                    <?php foreach (Database::query("SELECT * FROM `shr_breed` WHERE BRE_STATUS IS NULL;", PDO::FETCH_OBJ) as $key => $item): ?>
+                                    <?php foreach (Database::query("SELECT * FROM `shr_breed` WHERE BRE_STATUS IS NULL;", PDO::FETCH_OBJ) as $key => $item) : ?>
                                         <option value="<?php echo $item->BRE_ID ?>">
                                             <?php echo $item->BRE_NAME ?>
                                         </option>
@@ -140,10 +139,21 @@ $activeHome = 'active';
                             </div>
                             <div class="col-12 col-sm-12">
                                 <label for="">วันที่เปิดบ่อ</label>
-                                <input type="date" class="form-control border-0" name="ISP_START" placeholder=""
-                                    required style="height: 55px;">
+                                <input type="date" class="form-control border-0" name="ISP_START" placeholder="" required style="height: 55px;">
                             </div>
-
+                            <div class="col-12 col-sm-12">
+                                <label for="">จำนวนกุ้งที่ปล่อย</label>
+                                <input type="number" class="form-control border-0" name="ISP_ITEM" placeholder="จำนวนกุ้งที่ปล่อย" min="1"  required style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <label for="">ราคากุ้ง/ตัว</label>
+                                <input type="number" class="form-control border-0" name="ISP_PRICE" placeholder="ราคากุ้ง/ตัว" min="0" step="0.1" required style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <label for="">รวมค่าใช้จ่ายอื่น ๆ (ไม่รวมราคากุ้ง) </label>
+                                <input type="number" class="form-control border-0" name="ISP_PRICE_OTH" value="0" min="0" placeholder="รวมค่าใช้จ่ายอื่น ๆ (ไม่รวมราคากุ้ง) " required style="height: 55px;">
+                            </div>
+                            
                             <div class="col-12">
                                 <label for="">รายละเอียดเปิดบ่ใหม่</label>
                                 <textarea class="form-control border-0" name="ISP_NOTE" placeholder="Note"></textarea>
@@ -164,7 +174,7 @@ $activeHome = 'active';
         </div>
     </div>
 
-    <?php include ("inc/footer.php") ?>
+    <?php include("inc/footer.php") ?>
 
     <script src="js/index.js"></script>
 

@@ -45,7 +45,7 @@ $activeHistory = 'active';
                                 <th style="width: 10%;">บ่อกุ้ง</th>
                                 <th style="width: 10%;">สายพันธุ์กุ้ง</th>
                                 <th>วันที่เปิดบ่อ</th>
-                                <th>วันที่ปิดบ่อ</th>
+                                <th>วันที่จับกุ้ง</th>
                                 <th>รายจ่าย / บาท</th>
                                 <th>รายรับ / บาท</th>
                                 <th style="width: 20%;">กำไร</th>

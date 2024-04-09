@@ -10,13 +10,18 @@ const mainTable = new DataTable('#mainTable', {
     // pageing: false
     "sScrollX": '100%'
 });
-const mainMLists = new DataTable('#mainMList', {
-    // responsive: true,
-    ordering: false,
-    searching: true,
-    "sScrollX": '100%'
-});
-
+// const mainMLists = new DataTable('#mainMList', {
+//     // responsive: true,
+//     "pageLength": -1,
+//     "lengthMenu": [
+//         [-1,],
+//         ["All",]
+//     ],
+//     ordering: false,
+//     searching: true,
+//     "sScrollX": '100%'
+// });
+    
 document.getElementById('form-add').addEventListener('submit', (e) => {
 
     e.preventDefault();
