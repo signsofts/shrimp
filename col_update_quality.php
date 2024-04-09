@@ -11,6 +11,66 @@ WHERE shr_quality.QY_ID = '$QY_ID'";
 $item = Database::squery($sql, PDO::FETCH_OBJ, false);
 
 
+$FT_ID = $_POST["FT_ID"];
+$SUMFT  = (int) Database::query("SELECT  SUM(FTT_ITEM) AS SUM  FROM `shr_foodtypetran` WHERE FTT_TYPE = '1' AND FT_ID ='$FT_ID'", PDO::FETCH_OBJ)->fetch(PDO::FETCH_OBJ)->SUM - (int) Database::query("SELECT SUM(FTT_ITEM) AS SUM FROM `shr_foodtypetran` WHERE  FTT_TYPE = '0' AND FT_ID ='$FT_ID'", PDO::FETCH_OBJ)->fetch(PDO::FETCH_OBJ)->SUM;
+
+if (isset($_POST["QY_FEED_1"])) {
+        if ($SUMFT < $_POST["QY_FEED_1"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+
+if (isset($_POST["QY_FEED_2"])) {
+        if ($SUMFT < $_POST["QY_FEED_2"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+if (isset($_POST["QY_FEED_2"])) {
+        if ($SUMFT < $_POST["QY_FEED_2"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+if (isset($_POST["QY_FEED_3"])) {
+        if ($SUMFT < $_POST["QY_FEED_3"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+
+if (isset($_POST["QY_FEED_4"])) {
+        if ($SUMFT < $_POST["QY_FEED_4"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+if (isset($_POST["QY_FEED_5"])) {
+        if ($SUMFT < $_POST["QY_FEED_5"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+if (isset($_POST["QY_FEED_6"])) {
+        if ($SUMFT < $_POST["QY_FEED_6"]) {
+                echo "<script>alert('แจ้งเตือนอาหารในคลังหมด คงเหลือ $SUMFT Kg.')</script>";
+                echo "<script>location.assign('./infoshrimp.php?ISP_ID=$item->ISP_ID')</script>";
+                exit;
+        }
+}
+
+
+
+
+
+// echo $SUMFT;
 // if (isset($_POST["QY_FEED_6"])) {
 //         $ISP_ID = $item->ISP_ID;
 //         $FT_PRICE = $_POST["FT_PRICE"];
@@ -98,9 +158,14 @@ $sqll = "UPDATE `shr_quality` SET
 $ISP_ID = $item->ISP_ID;
 $FT_PRICE = $_POST["FT_PRICE"];
 $QY_AGE = $_POST["QY_AGE"];
+$FT_ID = $_POST["FT_ID"];
+$FTT_DATE = date("Y-m-d");
+$FTT_TYPE = '0';
 
 // อัพเดตข้อมูล 
 if (Database::query($sqll)) {
+
+
 
         if (isset($_POST["QY_FEED_1"])) {
                 $ML_AMOUNT = (int)$_POST["QY_FEED_1"] * (int)$FT_PRICE;
@@ -110,11 +175,18 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_1"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 
         if (isset($_POST["QY_FEED_2"])) {
                 // $ML_AMOUNT = (int)$QY_FEED_2 * (int)$FT_PRICE;
-                
+
                 $ML_AMOUNT = (int)$_POST["QY_FEED_2"] * (int)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
@@ -123,6 +195,12 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_2"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 
         if (isset($_POST["QY_FEED_3"])) {
@@ -135,6 +213,12 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_3"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 
         if (isset($_POST["QY_FEED_4"])) {
@@ -147,6 +231,12 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_4"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 
         if (isset($_POST["QY_FEED_5"])) {
@@ -159,6 +249,12 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_5"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 
         if (isset($_POST["QY_FEED_6"])) {
@@ -171,6 +267,12 @@ if (Database::query($sqll)) {
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
                         VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
                 Database::query($sqm1);
+
+                $FTT_ITEM = (int)$_POST["QY_FEED_6"];
+                // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
+                $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
+                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                Database::query($sqs);
         }
 }
 //  ลิงค์กลับไปยังหน้าเดิมปัจจุบัน
