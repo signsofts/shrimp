@@ -76,7 +76,7 @@ if (isset($_POST["QY_FEED_6"])) {
 //         $FT_PRICE = $_POST["FT_PRICE"];
 //         $QY_AGE = $_POST["QY_AGE"];
 
-//         $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (float)$FT_PRICE;
+//         $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (double)$FT_PRICE;
 
 //         echo $ML_AMOUNT;
 // } else {
@@ -168,7 +168,7 @@ if (Database::query($sqll)) {
 
 
         if (isset($_POST["QY_FEED_1"]) && !empty($_POST["QY_FEED_1"])) {
-                $ML_AMOUNT = (int)$_POST["QY_FEED_1"] * (float)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_1"] * (double)$FT_PRICE;
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 1 จำนวน {$_POST["QY_FEED_1"]} Kg.";
 
@@ -185,9 +185,9 @@ if (Database::query($sqll)) {
         }
 
         if (isset($_POST["QY_FEED_2"]) && !empty($_POST["QY_FEED_2"])) {
-                // $ML_AMOUNT = (int)$QY_FEED_2 * (float)$FT_PRICE;
+                // $ML_AMOUNT = (int)$QY_FEED_2 * (double)$FT_PRICE;
 
-                $ML_AMOUNT = (int)$_POST["QY_FEED_2"] * (float)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_2"] * (double)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 2 จำนวน {$_POST["QY_FEED_2"]} Kg.";
@@ -204,8 +204,8 @@ if (Database::query($sqll)) {
         }
 
         if (isset($_POST["QY_FEED_3"])&& !empty($_POST["QY_FEED_3"])) {
-                // $ML_AMOUNT = (int)$QY_FEED_3 * (float)$FT_PRICE;
-                $ML_AMOUNT = (int)$_POST["QY_FEED_3"] * (float)$FT_PRICE;
+                // $ML_AMOUNT = (int)$QY_FEED_3 * (double)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_3"] * (double)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 3 จำนวน {$_POST["QY_FEED_3"]} Kg.";
@@ -222,8 +222,8 @@ if (Database::query($sqll)) {
         }
 
         if (isset($_POST["QY_FEED_4"])&& !empty($_POST["QY_FEED_4"])) {
-                // $ML_AMOUNT = (int)$QY_FEED_4 * (float)$FT_PRICE;
-                $ML_AMOUNT = (int)$_POST["QY_FEED_4"] * (float)$FT_PRICE;
+                // $ML_AMOUNT = (int)$QY_FEED_4 * (double)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_4"] * (double)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 4 จำนวน {$_POST["QY_FEED_4"]} Kg.";
@@ -240,8 +240,8 @@ if (Database::query($sqll)) {
         }
 
         if (isset($_POST["QY_FEED_5"])&& !empty($_POST["QY_FEED_5"])) {
-                // $ML_AMOUNT = (int)$QY_FEED_5 * (float)$FT_PRICE;
-                $ML_AMOUNT = (int)$_POST["QY_FEED_5"] * (float)$FT_PRICE;
+                // $ML_AMOUNT = (int)$QY_FEED_5 * (double)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_5"] * (double)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 5 จำนวน {$_POST["QY_FEED_5"]} Kg.";
@@ -258,8 +258,8 @@ if (Database::query($sqll)) {
         }
 
         if (isset($_POST["QY_FEED_6"])&& !empty($_POST["QY_FEED_6"])) {
-                // $ML_AMOUNT = (int)$QY_FEED_6 * (float)$FT_PRICE;
-                $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (float)$FT_PRICE;
+                // $ML_AMOUNT = (int)$QY_FEED_6 * (double)$FT_PRICE;
+                $ML_AMOUNT = (int)$_POST["QY_FEED_6"] * (double)$FT_PRICE;
 
                 $ML_TYPE = '0'; // รายรับ - รายจ่าย
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 6 จำนวน {$_POST["QY_FEED_6"]} Kg.";
