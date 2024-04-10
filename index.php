@@ -143,11 +143,11 @@ $activeHome = 'active';
                             </div>
                             <div class="col-12 col-sm-12">
                                 <label for="">จำนวนกุ้งที่ปล่อย</label>
-                                <input type="number" class="form-control border-0" name="ISP_ITEM" placeholder="จำนวนกุ้งที่ปล่อย" min="1"  required style="height: 55px;">
+                                <input type="number" class="form-control border-0" name="ISP_ITEM" placeholder="จำนวนกุ้งที่ปล่อย" min="0"  required style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-12">
                                 <label for="">ราคากุ้ง/ตัว</label>
-                                <input type="number" class="form-control border-0" name="ISP_PRICE" placeholder="ราคากุ้ง/ตัว" min="0" step="0.1" required style="height: 55px;">
+                                <input type="number" class="form-control border-0" name="ISP_PRICE" placeholder="ราคากุ้ง/ตัว" min="0" step=".01" required style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-12">
                                 <label for="">รวมค่าใช้จ่ายอื่น ๆ (ไม่รวมราคากุ้ง) </label>

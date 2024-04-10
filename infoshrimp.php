@@ -81,10 +81,37 @@ $activeHome = 'active';
                                 <label for="">วันที่จับกุ้ง</label>
                                 <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_END ?? '-' ?>">
                             </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="">จำนวนกุ้งที่ปล่อย</label>
+                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ITEM ?? '-' ?>">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="">ราคากุ้ง/ตัว</label>
+                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_PRICE ?? '-' ?>">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="">คิดเป็น ( บาท )</label>
+                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ITEM * $isp_rco->ISP_PRICE ?? '-' ?>">
+                            </div>
+                            <!-- <br> -->
+
                             <div class="col-sm-4">
                                 <label for="">รายละเอียด</label>
                                 <textarea class="form-control border-0" rows="1" disabled><?php echo $isp_rco->ISP_NOTE ?? '-' ?></textarea>
                             </div>
+
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-4">
+                                <label for="">กุ้งที่จับได้ Kg.</label>
+                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDITEMKG ?? '-' ?>">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="">ราคากุ้ง / kg.</label>
+                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDPRICEKG ?? '-' ?>">
+                            </div>
+
                             <?php if (empty($isp_rco->ISP_STATUS)) : ?>
                                 <div class="col-12">
                                     <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalClone" class="btn btn-sm btn-danger py-1 px-4">ปิดบ่อ</a>
@@ -132,7 +159,7 @@ $activeHome = 'active';
                                 จำนวนยอ</th>
                             <th colspan="2" class="text-center" style="vertical-align : middle;text-align:center;">
                                 คุณภาพน้ำ</th>
-                            <th colspan="2" class="text-center" style="vertical-align : middle;text-align:center;">
+                            <th colspan="1" class="text-center" style="vertical-align : middle;text-align:center;">
                                 สุ่มกุ้ง</th>
                             <th rowspan="3" class="text-center" style="vertical-align : middle;text-align:center;">
                                 หมายเหตุ</th>
@@ -181,10 +208,10 @@ $activeHome = 'active';
                                 ความชุ่ม</td>
                             <td rowspan="2" class="text-center" style="vertical-align : middle;text-align:center;">
                                 ซัดคาไลน์</td> -->
-                            <td rowspan="1" colspan="2" class="text-center" style="vertical-align : middle;text-align:center;">
+                            <td rowspan="1" colspan="1" class="text-center" style="vertical-align : middle;text-align:center;">
                                 ขนาดเฉลี่ย
 
-                                <br>จำนวนตัว
+                                <br>ต่อ 1 กิโลกรัม
                             </td>
                         </tr>
 
@@ -195,8 +222,8 @@ $activeHome = 'active';
                             <td class="text-center">เย็น</td>
                             <td class="text-center">เช้า</td> -->
                             <!-- <td class="text-center">เย็น</td> -->
-                            <td class="text-center">กรัม</td>
-                            <td class="text-center">กก.</td>
+                            <!-- <td class="text-center">กรัม</td> -->
+                            <td class="text-center">จำนวนตัว</td>
                         </tr>
 
                     </thead>
@@ -299,7 +326,7 @@ $activeHome = 'active';
                                     </td>
                                     <td class="text-center">
                                         <?php
-                                        $smA += (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6;
+                                        $smA += (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_4 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6;
                                         echo  (int) $item->QY_FEED_1 + (int) $item->QY_FEED_2 + (int) $item->QY_FEED_3 + (int) $item->QY_FEED_4 + (int) $item->QY_FEED_5 + (int) $item->QY_FEED_6
                                         ?>
                                     </td>
@@ -464,13 +491,13 @@ $activeHome = 'active';
                                     </td> -->
 
 
-                                    <td class="text-center">
+                                    <!-- <td class="text-center">
                                         <?php if (empty($isp_rco->ISP_STATUS)) : ?>
                                             <input type="text" name="QY_RDOM_GRAM" style="width: 40px;" value="<?php echo $item->QY_RDOM_GRAM; ?>" onchange="funSubmint('fq_id_<?php echo $item->QY_ID ?>')">
                                         <?php else : ?>
                                             <?php echo $item->QY_RDOM_GRAM ?>
                                         <?php endif ?>
-                                    </td>
+                                    </td> -->
 
                                     <td class="text-center">
                                         <?php if (empty($isp_rco->ISP_STATUS)) : ?>
@@ -511,7 +538,7 @@ $activeHome = 'active';
                             <td></td>
                             <!-- <td></td> -->
                             <!-- <td class="text-center"><?php echo $smB; ?></td> -->
-                            <td></td>
+                            <!-- <td></td> -->
                             <td></td>
                             <td></td>
                             <td></td>
@@ -579,8 +606,8 @@ $activeHome = 'active';
                         $sql = "SELECT * FROM `shr_moneylist`
                                     WHERE shr_moneylist.ISP_ID = '$ISP_ID'  ORDER BY shr_moneylist.ML_STAMP ASC  ";
 
-                        $SumOut = 0;
-                        $SumIn = 0;
+                        $SumOut = 0.0;
+                        $SumIn = 0.0;
 
                         foreach (Database::squery($sql, PDO::FETCH_OBJ, true) as $key => $item) : ?>
                             <tr>
@@ -700,11 +727,11 @@ $activeHome = 'active';
                             </div>
                             <div class="col-12">
                                 <label for="">จำนวนกุ้งทั้งหมด (Kg.)</label>
-                                <input type="number" class="form-control border-0" name="ISP_ENDITEMKG" placeholder="" value="0" min="1" required style="height: 55px;">
+                                <input type="number" class="form-control border-0" name="ISP_ENDITEMKG" placeholder="" value="0" min="0" required style="height: 55px;">
                             </div>
                             <div class="col-12">
                                 <label for="">ราคากุ้ง (Kg.)</label>
-                                <input type="number" class="form-control border-0" name="ISP_ENDPRICEKG" placeholder="" value="0" min="1" required style="height: 55px;">
+                                <input type="number" class="form-control border-0" name="ISP_ENDPRICEKG" placeholder="" value="0" min="0" step="0.01" required style="height: 55px;">
                             </div>
                             <div class="col-12">
                                 <label for="">รายละเอียด</label>
@@ -754,7 +781,7 @@ $activeHome = 'active';
                             </div>
                             <div class="col-12">
                                 <label for="">จำนวน</label>
-                                <input type="number" name="ML_AMOUNT" class="form-control" required>
+                                <input type="number" name="ML_AMOUNT" value="0" min="0" step="0.01" class="form-control" required>
                             </div>
 
                         </div>

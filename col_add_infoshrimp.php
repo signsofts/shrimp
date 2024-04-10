@@ -5,9 +5,9 @@ $PON_ID = $_POST["PON_ID"];
 $BRE_ID = $_POST["BRE_ID"];
 $ISP_START = $_POST["ISP_START"];
 $ISP_NOTE = $_POST["ISP_NOTE"];
-$ISP_ITEM = (int) $_POST["ISP_ITEM"];
-$ISP_PRICE = (int)$_POST["ISP_PRICE"];
-$ISP_PRICE_OTH = (int) $_POST["ISP_PRICE_OTH"];
+$ISP_ITEM = (int)  $_POST["ISP_ITEM"];
+$ISP_PRICE = (float) $_POST["ISP_PRICE"];
+$ISP_PRICE_OTH = (float)  $_POST["ISP_PRICE_OTH"];
 $ISP_ID = 0;
 
 // สร้างข้อมูลการเลี้ยงกุ้งใหม่
@@ -20,7 +20,7 @@ if (Database::query($sq)) {
     // var_dump($ISP_IDMAXX);
     // exit;
     $ISP_ID = $ISP_IDMAXX;
-    $ML_AMOUNT = (int)$ISP_ITEM * (int)$ISP_PRICE;
+    $ML_AMOUNT = $ISP_ITEM * (float) $ISP_PRICE;
     $ML_TYPE = '0'; // รายรับ - รายจ่าย
     $ML_NAME = "ราคากุ้งเปิดบ่อ จำนวน $ISP_ITEM ตัว";
     // var_dump($ML_NAME);
@@ -37,7 +37,7 @@ if (Database::query($sq)) {
     // var_dump();
     // exit;
     $ML_NAME = "ค่าใช้จ่ายอื่นๆ ไม่รวมราคากุ้ง";
-    $ML_AMOUNT = (int)$ISP_PRICE_OTH;
+    $ML_AMOUNT = (float) $ISP_PRICE_OTH;
 
     // // สร้างข้อมูลลงตาราง shr_moneylist 
     $sqm2 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2024 at 04:01 PM
+-- Generation Time: Apr 10, 2024 at 08:01 PM
 -- Server version: 11.4.0-MariaDB
 -- PHP Version: 7.4.4
 
@@ -87,13 +87,6 @@ CREATE TABLE `shr_foodtype` (
   `FT_NUMBER` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลอาหาร';
 
---
--- Dumping data for table `shr_foodtype`
---
-
-INSERT INTO `shr_foodtype` (`FT_ID`, `FT_NAME`, `FT_PRICE`, `FT_STATUS`, `FT_STAMP`, `FT_NUMBER`) VALUES
-(1, '1234', 4.00, NULL, '2024-04-06 11:40:58', 3);
-
 -- --------------------------------------------------------
 
 --
@@ -108,15 +101,6 @@ CREATE TABLE `shr_foodtypetran` (
   `FT_ID` int(11) NOT NULL,
   `FTT_ITEM` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `shr_foodtypetran`
---
-
-INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) VALUES
-(1, '1', '2024-04-06 13:12:09', '2024-04-24', 1, 2),
-(2, '1', '2024-04-06 13:14:52', '2024-04-19', 1, 2),
-(3, '1', '2024-04-06 13:27:34', '2024-04-03', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -137,17 +121,8 @@ CREATE TABLE `shr_infoshrimp` (
   `ISP_PRICE` decimal(5,2) NOT NULL COMMENT 'ราคากุ้งต่อตัว',
   `ISP_PRICE_OTH` int(11) NOT NULL DEFAULT 0,
   `ISP_ENDITEMKG` int(11) DEFAULT NULL,
-  `ISP_ENDPRICEKG` int(11) DEFAULT NULL
+  `ISP_ENDPRICEKG` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลลงกุ้งแต่ละครั้ง';
-
---
--- Dumping data for table `shr_infoshrimp`
---
-
-INSERT INTO `shr_infoshrimp` (`ISP_ID`, `PON_ID`, `BRE_ID`, `ISP_START`, `ISP_END`, `ISP_STAMP`, `ISP_STATUS`, `ISP_NOTE`, `ISP_ITEM`, `ISP_PRICE`, `ISP_PRICE_OTH`, `ISP_ENDITEMKG`, `ISP_ENDPRICEKG`) VALUES
-(1, 1, 1, '2024-04-07', '2024-04-06', '2024-04-06 19:22:53', '1', '', 300, 2.00, 300, 0, 0),
-(2, 1, 1, '2024-04-07', '2024-04-09', '2024-04-09 13:01:01', '1', '', 300, 2.00, 4000, 0, 0),
-(3, 1, 1, '2024-04-09', NULL, '2024-04-09 13:03:38', '', '', 20, 1.00, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,59 +136,9 @@ CREATE TABLE `shr_moneylist` (
   `ML_NAME` varchar(255) NOT NULL,
   `ML_TYPE` varchar(3) NOT NULL COMMENT 'รับ จ่าย',
   `ML_STATUS` varchar(3) DEFAULT NULL,
-  `ML_AMOUNT` int(11) NOT NULL COMMENT 'ยอดเงิน',
-  `ML_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `ML_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ML_AMOUNT` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `shr_moneylist`
---
-
-INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) VALUES
-(12, 1, 'ราคากุ้งเปิดบ่อ', '0', NULL, 600, '2024-04-06 19:21:57'),
-(13, 1, 'ค่าใช้จ่ายอื่นๆ ไม่รวมราคากุ้ง', '0', NULL, 600, '2024-04-06 19:21:57'),
-(14, 2, 'ราคากุ้งเปิดบ่อ', '0', NULL, 600, '2024-04-06 19:23:11'),
-(15, 2, 'ค่าใช้จ่ายอื่นๆ ไม่รวมราคากุ้ง', '0', NULL, 4000, '2024-04-06 19:23:11'),
-(16, 2, 'จับกุ้งได้ 50 Kg.', '1', NULL, 5000, '2024-04-09 13:01:01'),
-(17, 3, 'ราคากุ้งเปิดบ่อ จำนวน 20 ตัว', '0', NULL, 20, '2024-04-09 13:03:38'),
-(18, 3, 'ค่าใช้จ่ายอื่นๆ ไม่รวมราคากุ้ง', '0', NULL, 0, '2024-04-09 13:03:38'),
-(19, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:33'),
-(20, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:33'),
-(21, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:35'),
-(22, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:35'),
-(23, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:41'),
-(24, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:38:41'),
-(25, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:40:43'),
-(26, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:40:43'),
-(27, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:21'),
-(28, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:21'),
-(29, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:21'),
-(30, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:22'),
-(31, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:22'),
-(32, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:22'),
-(33, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:22'),
-(34, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:24'),
-(35, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:24'),
-(36, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:24'),
-(37, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:24'),
-(38, 3, 'อายุุกุ้ง 1 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:41:24'),
-(39, 3, 'อายุุกุ้ง 2 อาหารมือ 1', '0', NULL, 0, '2024-04-09 13:44:17'),
-(40, 3, 'อายุุกุ้ง 2 อาหารมือ 2', '0', NULL, 0, '2024-04-09 13:44:17'),
-(41, 3, 'อายุุกุ้ง 2 อาหารมือ 3', '0', NULL, 0, '2024-04-09 13:44:17'),
-(42, 3, 'อายุุกุ้ง 2 อาหารมือ 4', '0', NULL, 0, '2024-04-09 13:44:17'),
-(43, 3, 'อายุุกุ้ง 2 อาหารมือ 5', '0', NULL, 0, '2024-04-09 13:44:17'),
-(44, 3, 'อายุุกุ้ง 2 อาหารมือ 6', '0', NULL, 0, '2024-04-09 13:44:17'),
-(45, 3, 'อายุุกุ้ง 3 อาหารมือ 4', '0', NULL, 4, '2024-04-09 13:49:37'),
-(46, 3, 'อายุุกุ้ง 3 อาหารมือ 5', '0', NULL, 32, '2024-04-09 13:49:55'),
-(47, 3, 'อายุุกุ้ง 4 อาหารมือ 6', '0', NULL, 24, '2024-04-09 13:53:13'),
-(48, 3, 'อายุุกุ้ง 4 อาหารมือ 5', '0', NULL, 4, '2024-04-09 13:53:20'),
-(49, 3, 'อายุุกุ้ง 4 อาหารมือ 3', '0', NULL, 12, '2024-04-09 13:53:30'),
-(50, 3, 'อายุุกุ้ง 4 อาหารมือ 1', '0', NULL, 20, '2024-04-09 13:53:51'),
-(51, 3, 'อายุุกุ้ง 4 อาหารมือ 4', '0', NULL, 4, '2024-04-09 13:58:39'),
-(52, 3, 'อายุุกุ้ง 4 อาหารมือ 2', '0', NULL, 12, '2024-04-09 13:59:11'),
-(53, 3, 'อายุุกุ้ง 4 อาหารมือ 2', '0', NULL, 12, '2024-04-09 13:59:50'),
-(54, 3, 'อายุุกุ้ง 4 อาหารมือ 2', '0', NULL, 12, '2024-04-09 13:59:56'),
-(55, 3, 'อายุุกุ้ง 1 อาหารมือ 6', '0', NULL, 200, '2024-04-09 14:00:02');
 
 -- --------------------------------------------------------
 
@@ -228,13 +153,6 @@ CREATE TABLE `shr_pond` (
   `PON_STATUS` varchar(2) DEFAULT NULL,
   `PON_DELETE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลบ่อกุ้ง';
-
---
--- Dumping data for table `shr_pond`
---
-
-INSERT INTO `shr_pond` (`PON_ID`, `PON_NAME`, `PON_STAMP`, `PON_STATUS`, `PON_DELETE`) VALUES
-(1, 'ก', '2024-04-09 13:03:38', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -279,16 +197,6 @@ CREATE TABLE `shr_quality` (
   `QY_STATUS` varchar(3) DEFAULT NULL,
   `QY_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `shr_quality`
---
-
-INSERT INTO `shr_quality` (`QY_ID`, `ISP_ID`, `QY_DATE`, `QY_AGE`, `FT_ID`, `QY_FY_NUM`, `QY_FEED_1`, `QY_FEED_2`, `QY_FEED_3`, `QY_FEED_4`, `QY_FEED_5`, `QY_FEED_6`, `QY_SURPLUS_1`, `QY_SURPLUS_2`, `QY_SURPLUS_3`, `QY_SURPLUS_4`, `QY_SURPLUS_5`, `QY_SURPLUS_6`, `QY_W_SALTY`, `QY_W_AMMONIA`, `QY_W_NITRITE`, `QY_W_PH_1`, `QY_W_PH_2`, `QY_W_ACID_1`, `QY_W_PERA_1`, `QY_W_PERA_2`, `QY_W_COLOR`, `QY_W_MOIST`, `QY_W_KALINE`, `QY_RDOM_GRAM`, `QY_RDOM_KG`, `QY_REMARK`, `QY_W_ACID_2`, `QY_STATUS`, `QY_STAMP`) VALUES
-(1, 3, '2024-04-09', 1, 1, NULL, '2', '2', '1', '1', '1', '50', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '2024-04-09 14:00:02'),
-(2, 3, '2024-04-10', 2, 1, NULL, '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '2024-04-09 13:44:17'),
-(3, 3, '2024-04-11', 3, 1, NULL, '1', '8', '1', '1', '8', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '2024-04-09 13:49:55'),
-(4, 3, '2024-04-12', 4, 1, NULL, '5', '3', '3', '1', '1', '6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '2024-04-09 13:59:11');
 
 --
 -- Indexes for dumped tables
@@ -367,37 +275,37 @@ ALTER TABLE `shr_breed`
 -- AUTO_INCREMENT for table `shr_foodtype`
 --
 ALTER TABLE `shr_foodtype`
-  MODIFY `FT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `FT_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_foodtypetran`
 --
 ALTER TABLE `shr_foodtypetran`
-  MODIFY `FTT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `FTT_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_infoshrimp`
 --
 ALTER TABLE `shr_infoshrimp`
-  MODIFY `ISP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ISP_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_moneylist`
 --
 ALTER TABLE `shr_moneylist`
-  MODIFY `ML_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `ML_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_pond`
 --
 ALTER TABLE `shr_pond`
-  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_quality`
 --
 ALTER TABLE `shr_quality`
-  MODIFY `QY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `QY_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

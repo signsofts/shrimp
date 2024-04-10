@@ -1,8 +1,8 @@
-<?php include ("config/connectdb.php");
+<?php include("config/connectdb.php");
 header('Content-type: application/json; charset=utf-8');
 
 $ISP_ID = $_POST["ISP_ID"];
-$ML_AMOUNT = (int) $_POST["ML_AMOUNT"];
+$ML_AMOUNT = $_POST["ML_AMOUNT"];
 $ML_TYPE = $_POST["ML_TYPE"]; // รายรับ - รายจ่าย
 $ML_NAME = $_POST["ML_NAME"];
 
@@ -18,6 +18,3 @@ if (Database::query($sq)) {
 
 
 echo json_encode(true);
-
-
-
