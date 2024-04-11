@@ -28,12 +28,14 @@ if (Database::query($sq)) {
 
     // สร้างข้อมูลลงตาราง shr_moneylist 
     $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                            VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                            VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$ISP_START');";
     // ;
     // var_dump($sqm1);
     // exit;
     // 
     Database::query($sqm1);
+
+    if(!empty($ISP_PRICE_OTH)) {
     // var_dump();
     // exit;
     $ML_NAME = "ค่าใช้จ่ายอื่นๆ ไม่รวมราคากุ้ง";
@@ -41,8 +43,10 @@ if (Database::query($sq)) {
 
     // // สร้างข้อมูลลงตาราง shr_moneylist 
     $sqm2 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                            VALUES (NULL, '$ISP_ID', '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                            VALUES (NULL, '$ISP_ID', '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$ISP_START');";
     Database::query($sqm2);
+    }
+
     // print_r();
     // exit;
     // อัพสถานะบ่กุ้งให้ถูกเลี้ยงกุ้งแล้ว 

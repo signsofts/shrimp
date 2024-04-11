@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 10, 2024 at 08:01 PM
+-- Generation Time: Apr 11, 2024 at 05:13 PM
 -- Server version: 11.4.0-MariaDB
 -- PHP Version: 7.4.4
 
@@ -121,7 +121,7 @@ CREATE TABLE `shr_infoshrimp` (
   `ISP_PRICE` decimal(5,2) NOT NULL COMMENT 'ราคากุ้งต่อตัว',
   `ISP_PRICE_OTH` int(11) NOT NULL DEFAULT 0,
   `ISP_ENDITEMKG` int(11) DEFAULT NULL,
-  `ISP_ENDPRICEKG` decimal(5,2) DEFAULT NULL
+  `ISP_ENDPRICEKG` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลลงกุ้งแต่ละครั้ง';
 
 -- --------------------------------------------------------
@@ -137,7 +137,7 @@ CREATE TABLE `shr_moneylist` (
   `ML_TYPE` varchar(3) NOT NULL COMMENT 'รับ จ่าย',
   `ML_STATUS` varchar(3) DEFAULT NULL,
   `ML_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `ML_AMOUNT` decimal(5,2) DEFAULT NULL
+  `ML_AMOUNT` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -153,6 +153,13 @@ CREATE TABLE `shr_pond` (
   `PON_STATUS` varchar(2) DEFAULT NULL,
   `PON_DELETE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลบ่อกุ้ง';
+
+--
+-- Dumping data for table `shr_pond`
+--
+
+INSERT INTO `shr_pond` (`PON_ID`, `PON_NAME`, `PON_STAMP`, `PON_STATUS`, `PON_DELETE`) VALUES
+(1, 'บ่อ 1', '2024-04-11 14:31:28', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -299,7 +306,7 @@ ALTER TABLE `shr_moneylist`
 -- AUTO_INCREMENT for table `shr_pond`
 --
 ALTER TABLE `shr_pond`
-  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shr_quality`

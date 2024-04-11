@@ -158,6 +158,7 @@ $sqll = "UPDATE `shr_quality` SET
 $ISP_ID = $item->ISP_ID;
 $FT_PRICE = $_POST["FT_PRICE"];
 $QY_AGE = $_POST["QY_AGE"];
+$QY_DATE = $_POST["QY_DATE"];
 $FT_ID = $_POST["FT_ID"];
 $FTT_DATE = date("Y-m-d");
 $FTT_TYPE = '0';
@@ -173,14 +174,14 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 1 จำนวน {$_POST["QY_FEED_1"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_1"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 
@@ -193,13 +194,13 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 2 จำนวน {$_POST["QY_FEED_2"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_2"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 
@@ -211,13 +212,13 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 3 จำนวน {$_POST["QY_FEED_3"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_3"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 
@@ -229,13 +230,13 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 4 จำนวน {$_POST["QY_FEED_4"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_4"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 
@@ -247,13 +248,13 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 5 จำนวน {$_POST["QY_FEED_5"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_5"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 
@@ -265,13 +266,13 @@ if (Database::query($sqll)) {
                 $ML_NAME = "อายุกุ้ง $QY_AGE อาหารมือ 6 จำนวน {$_POST["QY_FEED_6"]} Kg.";
 
                 $sqm1 = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                        VALUES (NULL, $ISP_ID, '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '$QY_DATE');";
                 Database::query($sqm1);
 
                 $FTT_ITEM = (int)$_POST["QY_FEED_6"];
                 // สร้างข้อมูล อาหาร กุ้ง shr_foodtype
                 $sqs = "INSERT INTO `shr_foodtypetran` (`FTT_ID`, `FTT_TYPE`, `FTT_STAMP`, `FTT_DATE`, `FT_ID`, `FTT_ITEM`) 
-                                    VALUES (NULL, '$FTT_TYPE', current_timestamp(), '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
+                                    VALUES (NULL, '$FTT_TYPE', '$QY_DATE', '$FTT_DATE', '$FT_ID', '$FTT_ITEM');";
                 Database::query($sqs);
         }
 }

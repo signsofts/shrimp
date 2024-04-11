@@ -247,7 +247,7 @@ https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js
                     alert("บันทึกข้อมูลสำเร็จ");
                     location.reload();
                 } else {
-                    alert("บันทึกข้อมูลไม่สำเร็จ");
+                    alert("บันทึกข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลซ้ำ");
                 }
             });
 

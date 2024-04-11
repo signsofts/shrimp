@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2024 at 06:08 PM
+-- Generation Time: Apr 11, 2024 at 05:13 PM
 -- Server version: 11.4.0-MariaDB
 -- PHP Version: 7.4.4
 
@@ -40,7 +40,9 @@ CREATE TABLE `shr_admin` (
 --
 
 INSERT INTO `shr_admin` (`AD_ID`, `AD_USERNAME`, `AD_PASSWORD`, `AD_NAME`, `AD_STAMP`) VALUES
-(1, 'admin', 'admin', 'admin', '2024-03-24 06:41:39');
+(1, 'admin', 'admin', 'admin', '2024-03-24 06:41:39'),
+(2, 'user', 'user', 'user', '2024-04-02 13:59:28'),
+(4, 'use2', 'use2', 'use1', '2024-04-02 14:01:47');
 
 -- --------------------------------------------------------
 
@@ -88,6 +90,21 @@ CREATE TABLE `shr_foodtype` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shr_foodtypetran`
+--
+
+CREATE TABLE `shr_foodtypetran` (
+  `FTT_ID` int(11) NOT NULL,
+  `FTT_TYPE` enum('1','0') NOT NULL COMMENT '1 เพิล 0 ใช้ไป',
+  `FTT_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `FTT_DATE` date NOT NULL COMMENT 'วันที่ซื้อ',
+  `FT_ID` int(11) NOT NULL,
+  `FTT_ITEM` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shr_infoshrimp`
 --
 
@@ -99,7 +116,12 @@ CREATE TABLE `shr_infoshrimp` (
   `ISP_END` date DEFAULT NULL COMMENT 'วันที่ปิด',
   `ISP_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `ISP_STATUS` varchar(3) NOT NULL COMMENT 'สถานะ',
-  `ISP_NOTE` text NOT NULL
+  `ISP_NOTE` text NOT NULL,
+  `ISP_ITEM` int(11) NOT NULL,
+  `ISP_PRICE` decimal(5,2) NOT NULL COMMENT 'ราคากุ้งต่อตัว',
+  `ISP_PRICE_OTH` int(11) NOT NULL DEFAULT 0,
+  `ISP_ENDITEMKG` int(11) DEFAULT NULL,
+  `ISP_ENDPRICEKG` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลลงกุ้งแต่ละครั้ง';
 
 -- --------------------------------------------------------
@@ -114,8 +136,8 @@ CREATE TABLE `shr_moneylist` (
   `ML_NAME` varchar(255) NOT NULL,
   `ML_TYPE` varchar(3) NOT NULL COMMENT 'รับ จ่าย',
   `ML_STATUS` varchar(3) DEFAULT NULL,
-  `ML_AMOUNT` int(11) NOT NULL COMMENT 'ยอดเงิน',
-  `ML_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `ML_STAMP` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ML_AMOUNT` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,6 +153,13 @@ CREATE TABLE `shr_pond` (
   `PON_STATUS` varchar(2) DEFAULT NULL,
   `PON_DELETE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ข้อมูลบ่อกุ้ง';
+
+--
+-- Dumping data for table `shr_pond`
+--
+
+INSERT INTO `shr_pond` (`PON_ID`, `PON_NAME`, `PON_STAMP`, `PON_STATUS`, `PON_DELETE`) VALUES
+(1, 'บ่อ 1', '2024-04-11 14:31:28', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,6 +228,13 @@ ALTER TABLE `shr_foodtype`
   ADD PRIMARY KEY (`FT_ID`);
 
 --
+-- Indexes for table `shr_foodtypetran`
+--
+ALTER TABLE `shr_foodtypetran`
+  ADD PRIMARY KEY (`FTT_ID`),
+  ADD KEY `cccf` (`FT_ID`);
+
+--
 -- Indexes for table `shr_infoshrimp`
 --
 ALTER TABLE `shr_infoshrimp`
@@ -210,8 +246,7 @@ ALTER TABLE `shr_infoshrimp`
 -- Indexes for table `shr_moneylist`
 --
 ALTER TABLE `shr_moneylist`
-  ADD PRIMARY KEY (`ML_ID`),
-  ADD KEY `vv` (`ISP_ID`);
+  ADD PRIMARY KEY (`ML_ID`);
 
 --
 -- Indexes for table `shr_pond`
@@ -235,7 +270,7 @@ ALTER TABLE `shr_quality`
 -- AUTO_INCREMENT for table `shr_admin`
 --
 ALTER TABLE `shr_admin`
-  MODIFY `AD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `AD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `shr_breed`
@@ -248,6 +283,12 @@ ALTER TABLE `shr_breed`
 --
 ALTER TABLE `shr_foodtype`
   MODIFY `FT_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shr_foodtypetran`
+--
+ALTER TABLE `shr_foodtypetran`
+  MODIFY `FTT_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shr_infoshrimp`
@@ -265,7 +306,7 @@ ALTER TABLE `shr_moneylist`
 -- AUTO_INCREMENT for table `shr_pond`
 --
 ALTER TABLE `shr_pond`
-  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PON_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shr_quality`
@@ -276,6 +317,12 @@ ALTER TABLE `shr_quality`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `shr_foodtypetran`
+--
+ALTER TABLE `shr_foodtypetran`
+  ADD CONSTRAINT `cccf` FOREIGN KEY (`FT_ID`) REFERENCES `shr_foodtype` (`FT_ID`);
 
 --
 -- Constraints for table `shr_infoshrimp`

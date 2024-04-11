@@ -103,19 +103,21 @@ $activeHome = 'active';
                         </div>
 
                         <div class="row g-3">
-                            <div class="col-12 col-sm-4">
-                                <label for="">กุ้งที่จับได้ Kg.</label>
-                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDITEMKG ?? '-' ?>">
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <label for="">ราคากุ้ง / kg.</label>
-                                <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDPRICEKG ?? '-' ?>">
-                            </div>
 
                             <?php if (empty($isp_rco->ISP_STATUS)) : ?>
                                 <div class="col-12">
                                     <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalClone" class="btn btn-sm btn-danger py-1 px-4">ปิดบ่อ</a>
                                 </div>
+                            <?php else : ?>
+                                <div class="col-12 col-sm-4">
+                                    <label for="">กุ้งที่จับได้ Kg.</label>
+                                    <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDITEMKG ?? '-' ?>">
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <label for="">ราคากุ้ง / kg.</label>
+                                    <input type="text" class="form-control border-0" disabled style="" value="<?php echo $isp_rco->ISP_ENDPRICEKG ?? '-' ?>">
+                                </div>
+
                             <?php endif; ?>
                         </div>
 
@@ -249,6 +251,7 @@ $activeHome = 'active';
                                     <input type="hidden" name="FT_ID" value="<?php echo $item->FT_ID ?>">
                                     <input type="hidden" name="FT_PRICE" value="<?php echo $item->FT_PRICE ?>">
                                     <input type="hidden" name="QY_AGE" value="<?php echo $item->QY_AGE ?>">
+                                    <input type="hidden" name="QY_DATE" value="<?php echo $item->QY_DATE ?>">
                                     <td class="text-center">
                                         <?php echo $item->QY_DATE ?>
                                     </td>
@@ -594,7 +597,7 @@ $activeHome = 'active';
                     <thead>
                         <tr>
                             <th style="width: 1%;">ลำดับ</th>
-                            <th style="width: 10%;">วันที่</th>
+                            <th style="width: 10%;">วันที่รับ-จ่าย</th>
                             <th>รายการ</th>
                             <th style="width: 20%;">รายจ่าย</th>
                             <th style="width: 20%;">รายรับ</th>
@@ -646,6 +649,20 @@ $activeHome = 'active';
 
     <hr>
 
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
 
 
 
@@ -663,10 +680,28 @@ $activeHome = 'active';
                             <div class="col-12 col-sm-12">
                                 <label for="">วันที่บันทึก</label>
                                 <?php
-                                $qrco = Database::query("SELECT MAX( QY_DATE ) AS MQ FROM `shr_quality`  WHERE ISP_ID = '$ISP_ID' ", PDO::FETCH_OBJ)->fetch(PDO::FETCH_OBJ)->MQ
+                                try {
+                                    $qrco = Database::query("SELECT MAX( QY_DATE ) AS MQ FROM `shr_quality`  WHERE ISP_ID = '$ISP_ID' ", PDO::FETCH_OBJ)->fetch(PDO::FETCH_OBJ);
+
+                                    if (!empty($qrco)) {
+                                        // print_r($qrco);
+                                        if (!empty($qrco->MQ)) {
+                                            $qrco = $qrco->MQ;
+                                            $qrco = date('Y-m-d', strtotime("+1 day", strtotime($qrco)));
+                                        } else {
+                                            $qrco = date("Y-m-d");
+                                        }
+                                        // $qrco = $qrco->MQ;
+                                        // $qrco = date('Y-m-d', strtotime("+1 day", strtotime($qrco)));
+                                    } else {
+                                        $qrco = date("Y-m-d");
+                                    }
+                                } catch (Exception $e) {
+                                    $qrco = date("Y-m-d");
+                                }
 
                                 ?>
-                                <input type="date" class="form-control border-0" name="QY_DATE" placeholder="" value="<?php echo date('Y-m-d', strtotime("+1 day", strtotime($qrco))) ?>" required style="height: 55px;">
+                                <input type="date" class="form-control border-0" name="QY_DATE" placeholder="" value="<?php echo $qrco ?>" required style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-12">
                                 <label for="">อายุกุ้ง</label>
