@@ -811,6 +811,10 @@ $activeHome = 'active';
                                 </div>
                             </div>
                             <div class="col-12">
+                                <label for="">วันที่</label>
+                                <input type="date" name="ML_STAMP" class="form-control" required>
+                            </div>
+                            <div class="col-12">
                                 <label for="">ชื่อรายการ</label>
                                 <input type="text" name="ML_NAME" class="form-control" required>
                             </div>

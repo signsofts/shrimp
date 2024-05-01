@@ -8,11 +8,11 @@ $activeHistory = 'active';
 ?>
 
 <head>
-    <?php include ("inc/head.php") ?>
+    <?php include("inc/head.php") ?>
 </head>
 
 <body>
-    <?php include ("inc/header.php") ?>
+    <?php include("inc/header.php") ?>
 
     <div class="container-xxl py-5">
         <div class="container">
@@ -58,7 +58,7 @@ $activeHistory = 'active';
                             <?php foreach (Database::query("SELECT * FROM `shr_infoshrimp`
                                                     INNER JOIN shr_pond ON shr_infoshrimp.PON_ID = shr_pond.PON_ID 
                                                     INNER JOIN shr_breed ON shr_infoshrimp.BRE_ID = shr_breed.BRE_ID ;
-                                                    ", PDO::FETCH_OBJ) as $key => $item): ?>
+                                                    ", PDO::FETCH_OBJ) as $key => $item) : ?>
 
                                 <?php
 
@@ -82,7 +82,7 @@ $activeHistory = 'active';
                                         <?php echo date("d/m/Y", strtotime($item->ISP_START)) ?>
                                     </td>
                                     <td>
-                                        <?php echo date("d/m/Y", strtotime($item->ISP_END)) ?>
+                                        <?php echo is_null($item->ISP_END) ? "-" :   date("d/m/Y", strtotime($item->ISP_END)) ?>
                                     </td>
                                     <td>
                                         <?php echo $SumIn; ?>
@@ -131,7 +131,7 @@ $activeHistory = 'active';
     </div>
 
 
-    <?php include ("inc/footer.php") ?>
+    <?php include("inc/footer.php") ?>
 
     <!-- https://code.jquery.com/jquery-3.7.1.js
 https://cdn.datatables.net/2.0.3/js/dataTables.js
@@ -160,24 +160,22 @@ https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js
             "sScrollX": '100%',
             layout: {
                 topStart: {
-                    buttons: [
-                        {
+                    buttons: [{
                             extend: 'print',
                             exportOptions: {
-                                columns: [0, 1, 2, 4,5,6,7]
+                                columns: [0, 1, 2, 4, 5, 6, 7]
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: [0, 1, 2, 4,5,6,7]
+                                columns: [0, 1, 2, 4, 5, 6, 7]
                             }
                         },
                     ]
                 }
             }
         });
-
     </script>
 </body>
 

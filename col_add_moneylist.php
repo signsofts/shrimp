@@ -5,11 +5,12 @@ $ISP_ID = $_POST["ISP_ID"];
 $ML_AMOUNT = $_POST["ML_AMOUNT"];
 $ML_TYPE = $_POST["ML_TYPE"]; // รายรับ - รายจ่าย
 $ML_NAME = $_POST["ML_NAME"];
+$ML_STAMP = $_POST["ML_STAMP"];
 
 
 // สร้างข้อมูลลงตาราง shr_moneylist 
 $sq = "INSERT INTO `shr_moneylist` (`ML_ID`, `ISP_ID`, `ML_NAME`, `ML_TYPE`, `ML_STATUS`, `ML_AMOUNT`, `ML_STAMP`) 
-                            VALUES (NULL, '$ISP_ID', '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', current_timestamp());";
+                            VALUES (NULL, '$ISP_ID', '$ML_NAME', '$ML_TYPE', null, '$ML_AMOUNT', '{$ML_STAMP}');";
 if (Database::query($sq)) {
 } else {
     echo json_encode(false);
